@@ -1,0 +1,15 @@
+* Store icon 128 x 128
+Screenshot 640 x 400 - 2
+Promo tile 440 x 280
+Large promo tile	920 x 680
+Marquee promo tile	1400 x 560
+
+More extensions:
+- API crawler
+- XPath helper
+- Tic-Tac-Toe
+- force https
+	- add exceptions
+	- backup exceptions
+	- enable/disable warnings for forms on http
+- searh chrome settings
