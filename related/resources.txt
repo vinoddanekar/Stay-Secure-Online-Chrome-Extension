@@ -13,3 +13,5 @@ More extensions:
 	- backup exceptions
 	- enable/disable warnings for forms on http
 - searh chrome settings
+
+- add your image to google

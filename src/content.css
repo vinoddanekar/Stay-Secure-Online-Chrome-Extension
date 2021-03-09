@@ -1,0 +1,57 @@
+.fsHttpWarningWrapper-1{
+    position: fixed;
+    width: 100%;
+    top: 7px;
+    text-align: center;
+}
+
+.fsHttpWarningWrapper-1 .fsHttpWarning {
+    -ms-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    position: fixed;
+    margin:0px auto;
+
+    left: 50%;
+    background-color: #fff;
+    color: rgb(229, 115, 115);
+    padding: 3px 8px;
+    display: inline-block;
+    font-family: arial;
+    font-size: 15px;
+    box-shadow: 1px 1px 4px 1px #e0e0e0;
+}
+
+.fsHttpWarningWrapper-2{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    text-align: center;
+    border-top: solid 3px rgb(229, 115, 115);
+}
+
+.fsHttpWarningWrapper-2 .fsHttpWarning {
+    background-color: #e57373;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 0px 0px 9px 9px;
+    display: inline-block;
+    font-family: arial;
+    font-size: 15px;
+}
+
+.fsinput{
+    border: 1px solid #aaa;
+    width: 400px;
+    font-size: 20px;
+    padding: 3px 5px;
+}
+
+.fsbutton {
+    font-size: 19px;
+    padding: 3px 5px;
+    background-color: #66bb6a;
+    color: #fff;
+    border: 1px solid #4caf50;
+}
