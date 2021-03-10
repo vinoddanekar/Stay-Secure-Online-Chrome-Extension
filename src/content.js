@@ -1,13 +1,13 @@
 /*
 TODO
-1. allow remove url
+1. allow remove url - done
 2. allow disable plugin
 3. while adding make sure http - done
 4. ignore non-http while fetching - done
 5. show warning for http sites - done
-6. for http form show warning
+6. for http form show warning - done
 7. change icon color green for https, red for http
-8. if site is added then change button to 'remove' else 'add'
+8. if site is added then change button to 'remove' else 'add' - done
 http://scratchpads.org/explore/sites-list
 */
 var __fsEnableExtension = true;
@@ -81,7 +81,10 @@ __fsInitializePopup = function () {
         btnAddUrl.addEventListener("click", onbtnAddUrlClick);
     function onbtnAddUrlClick() {
         var url = document.getElementById("txtUrlToAdd").value;
-        __fsAddUrl(url);
+        if (btnAddUrl.value == 'Remove')
+            __fsRemoveUrl(url);
+        else
+            __fsAddUrl(url);
     }
 }
 
@@ -95,9 +98,37 @@ __fsInputActiveHttpUrl = function () {
         var host = urlParts[0] + "//" + urlParts[2]
         if (host.startsWith('http://')) {
             txtAddUrl.value = host;
+            __fsUpdateButtonText();
         }
     });
+}
 
+__fsUpdateButtonText = function () {
+    var txtAddUrl = document.getElementById("txtUrlToAdd");
+    var btnAddUrl = document.getElementById("btnAddUrl");
+    var url = txtAddUrl.value;
+    btnAddUrl.value = "Add";
+    if (txtAddUrl.value != '') {
+        chrome.storage.local.get('_WhiteListWebSiteStore', function (result) {
+            var items = __fsGetItems(result);
+            var isWhiteListed = __fsHasItem(items, url);
+            if (isWhiteListed) {
+                btnAddUrl.value = "Remove";
+            }
+        });
+    }
+
+}
+
+__fsHasItem = function (items, url) {
+    var found = false;
+    for (index = 0; index < items.length; index++) {
+        if (url.startsWith(items[index]) && items[index] != "") {
+            found = true;
+            break;
+        }
+    }
+    return found;
 }
 
 __fsAddUrl = function (url) {
@@ -105,6 +136,18 @@ __fsAddUrl = function (url) {
         var items = __fsGetItems(result);
         items.push(url);
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
+        var btnAddUrl = document.getElementById("btnAddUrl");
+        btnAddUrl.value = "Remove";
+    });
+}
+
+__fsRemoveUrl = function (url) {
+    chrome.storage.local.get('_WhiteListWebSiteStore', function (result) {
+        var items = __fsGetItems(result);
+        items.pop(url);
+        chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
+        var btnAddUrl = document.getElementById("btnAddUrl");
+        btnAddUrl.value = "Add";
     });
 }
 
