@@ -8,6 +8,8 @@ TODO
 6. for http form show warning - done
 7. change icon color green for https, red for http
 8. if site is added then change button to 'remove' else 'add' - done
+9. when on https, allow add site to exception and redirect back so that no trouble to user
+
 http://scratchpads.org/explore/sites-list
 */
 var __fsEnableExtension = true;
@@ -18,6 +20,7 @@ window.addEventListener('load', (event) => {
         __fsInitializeExtension();
     }
     __fsInitializePopup();
+
 });
 
 __fsReadSettings = function () {
@@ -108,12 +111,14 @@ __fsUpdateButtonText = function () {
     var btnAddUrl = document.getElementById("btnAddUrl");
     var url = txtAddUrl.value;
     btnAddUrl.value = "Add";
+    btnAddUrl.className = 'btn-add';
     if (txtAddUrl.value != '') {
         chrome.storage.local.get('_WhiteListWebSiteStore', function (result) {
             var items = __fsGetItems(result);
             var isWhiteListed = __fsHasItem(items, url);
             if (isWhiteListed) {
                 btnAddUrl.value = "Remove";
+                btnAddUrl.className = 'btn-remove';
             }
         });
     }
@@ -138,6 +143,8 @@ __fsAddUrl = function (url) {
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
         btnAddUrl.value = "Remove";
+        btnAddUrl.className = 'btn-remove';
+
     });
 }
 
@@ -148,6 +155,8 @@ __fsRemoveUrl = function (url) {
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
         btnAddUrl.value = "Add";
+        btnAddUrl.className = 'btn-add';
+
     });
 }
 
