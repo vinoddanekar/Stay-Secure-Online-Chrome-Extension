@@ -34,16 +34,11 @@ __fsInitializeExtension = function () {
     }
 }
 
-__fsShowHttpWarning = function () {
-    var message = "Force Security: It may not be safe to upload or download data on this site.";
-    __fsShowMessage(message);
-}
-
 __fsShowMessage = function (message) {
     var wrapperDiv = document.createElement('div');
     wrapperDiv.className = "fsHttpWarningWrapper-1";
     var warningDiv = document.createElement('div');
-    warningDiv.innerText = message;
+    warningDiv.innerHTML = message;
     warningDiv.className = "fsHttpWarning";
     wrapperDiv.appendChild(warningDiv);
     document.body.appendChild(wrapperDiv);
@@ -60,7 +55,7 @@ __fsForceHttps = function (url) {
             }
         }
         if (isWhiteListed) {
-            __fsShowMessage("Force Security: This site was whitelisted by you");
+            __fsShowMessage("SSO: This site was whitelisted by you");
         } else {
             __fsNavigateHttps(url);
         }
@@ -97,6 +92,7 @@ __fsInputActiveHttpUrl = function () {
         return;
 
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
+        txtAddUrl.focus();
         var urlParts = tabs[0].url.split("/");
         var host = urlParts[0] + "//" + urlParts[2]
         if (host.startsWith('http://')) {
@@ -162,8 +158,8 @@ __fsRemoveUrl = function (url) {
 
 __fsGetItems = function (localStorageResult) {
     var items;
-    if (localStorageResult == null) {
-        items = { '_WhiteListWebSiteStore': [] };
+    if (localStorageResult == undefined || localStorageResult._WhiteListWebSiteStore == undefined) {
+        items = [];
     }
     else {
         items = localStorageResult._WhiteListWebSiteStore;

@@ -7,19 +7,44 @@
     body {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 13px;
-      background-color: #f7f7f7;
+      font-family: arial;
+      font-size: 13px;
+      color: #666;
+      margin: 0px;
+      padding: 9px;
+
     }
 
     .container {
-      width: 600px;
-      height: 400px;
+      width: 558px;
+      height: 130px;
     }
 
     h3 {
-      font-size: 32px;
-      margin: 10px 10px 20px 10px;
+      font-size: 28px;
+      margin: 10px 10px 7px 0px;
       font-weight: normal;
-      font-family: cursive;
+      color: #689f38;
+    }
+
+    h5 {
+      padding: 15px 0px 0px 0px;
+      margin: 0px;
+      font-weight: normal;
+      font-size: 18px;
+    }
+
+    * {
+      outline: none;
+    }
+
+    p {
+      padding: 5px 0px 5px 0px;
+      margin: 0px;
+    }
+
+    .label {
+      padding: 0px 0px 10px 0px;
     }
 
     .textBox {
@@ -30,8 +55,11 @@
       outline: none;
       border-radius: 3px;
       width: 400px;
-      background-color: #eeeeee3b;
+      background-color: #fefefe;
+    }
 
+    .textBox:focus {
+      border-color: #ce93d8;
     }
 
     .btn-add,
@@ -93,26 +121,29 @@
       position: relative;
       top: 1px;
     }
+
+    .info {
+      padding-top: 15px;
+
+    }
+
+    a.help-link {
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h3>Force Security</h3>
-    <label><strong>Add website to whitelist</strong></label>
+    <div class="label">
+      <h5>Add website to whitelist</h5>
+    </div>
     <div>
       <input id="txtUrlToAdd" type="input" class="textBox" width="400px" />
       <input id="btnAddUrl" type="button" class="btn-add" value="Add" />
     </div>
-    <p>What is whitelist</p>
-    <p>How to whitelist website</p>
-    <p>How to remove website from whitelist</p>
-    <div>
-      <p>Force security redirects website to https site automatically. If you see that website owner
-        has not implemented https and you are sure that site is safe for browsing then
-        you can enter website in box below and click on button Add url. So that, Force security will
-        add it to a whitelist and will not redirect this site to https.
-      </p>
+    <div class="info">
+      <a href="https://vinoddanekar.blogspot.com" class="help-link" target="_blank">User Guide</a>
     </div>
   </div>
 </body>

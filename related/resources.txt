@@ -15,3 +15,16 @@ More extensions:
 - searh chrome settings
 
 - add your image to google
+
+
+What is whitelist
+Whitelist is a collection of websites which you consider safe for browsing. Force Security will not redirect such site to https.
+
+How to whitelist website
+Simply open the site, click on the Force security icon (Safe security will append website in input box) and click on Add button.
+
+How to remove website from whitelist
+Same as you add, open the website, click on Froce security icon (Safe security will append website in input box , will search in whitelist and will change button text to Remove if found in Whitelist) and click on Remove button.
+
+
+https://developer.chrome.com/docs/webstore/images/
