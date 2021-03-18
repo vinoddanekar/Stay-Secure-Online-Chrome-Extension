@@ -28,3 +28,19 @@ Same as you add, open the website, click on Froce security icon (Safe security w
 
 
 https://developer.chrome.com/docs/webstore/images/
+
+
+/*
+TODO
+1. allow remove url - done
+2. allow disable plugin
+3. while adding make sure http - done
+4. ignore non-http while fetching - done
+5. show warning for http sites - done
+6. for http form show warning - done
+7. change icon color green for https, red for http
+8. if site is added then change button to 'remove' else 'add' - done
+9. when on https, allow add site to exception and redirect back so that no trouble to user
+
+http://scratchpads.org/explore/sites-list
+*/

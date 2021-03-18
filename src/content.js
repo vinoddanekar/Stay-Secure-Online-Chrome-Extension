@@ -1,16 +1,6 @@
 /*
-TODO
-1. allow remove url - done
-2. allow disable plugin
-3. while adding make sure http - done
-4. ignore non-http while fetching - done
-5. show warning for http sites - done
-6. for http form show warning - done
-7. change icon color green for https, red for http
-8. if site is added then change button to 'remove' else 'add' - done
-9. when on https, allow add site to exception and redirect back so that no trouble to user
-
-http://scratchpads.org/explore/sites-list
+1. after auto-redirect allow to add to exception
+2. show redirect link below add button
 */
 var __fsEnableExtension = true;
 
@@ -20,7 +10,6 @@ window.addEventListener('load', (event) => {
         __fsInitializeExtension();
     }
     __fsInitializePopup();
-
 });
 
 __fsReadSettings = function () {
@@ -66,8 +55,8 @@ __fsNavigateHttps = function (url) {
     var newUrl = url;
     newUrl = newUrl.substr(4);
     newUrl = "https" + newUrl;
-    //window.location.href = newUrl;
-    console.log('Result: ' + newUrl);
+    window.location.href = newUrl;
+    //console.log('Result: ' + newUrl);
 
     return newUrl;
 }
@@ -94,6 +83,8 @@ __fsInputActiveHttpUrl = function () {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
         txtAddUrl.focus();
         var urlParts = tabs[0].url.split("/");
+        if (urlParts[0] == 'https:') { urlParts[0] = 'http:'; }
+
         var host = urlParts[0] + "//" + urlParts[2]
         if (host.startsWith('http://')) {
             txtAddUrl.value = host;
@@ -118,7 +109,6 @@ __fsUpdateButtonText = function () {
             }
         });
     }
-
 }
 
 __fsHasItem = function (items, url) {
@@ -138,9 +128,13 @@ __fsAddUrl = function (url) {
         items.push(url);
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
-        btnAddUrl.value = "Remove";
-        btnAddUrl.className = 'btn-remove';
+        btnAddUrl.value = "Done!";
+        btnAddUrl.className = 'btn-add';
 
+        setTimeout(() => {
+            btnAddUrl.value = "Remove";
+            btnAddUrl.className = 'btn-remove';
+        }, 2000);
     });
 }
 
@@ -150,9 +144,12 @@ __fsRemoveUrl = function (url) {
         items.pop(url);
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
-        btnAddUrl.value = "Add";
-        btnAddUrl.className = 'btn-add';
-
+        btnAddUrl.value = "Done!";
+        btnAddUrl.className = 'btn-remove';
+        setTimeout(() => {
+            btnAddUrl.value = "Add";
+            btnAddUrl.className = 'btn-add';
+        }, 2000);
     });
 }
 
