@@ -1,10 +1,10 @@
 ﻿{
-  "manifest_version": 2,
+  "manifest_version": 3,
   "author": "Vinod Danekar",
   "name": "Stay Secure Online",
-  "description": "Redirects all websites to https",
+  "description": "To deliver secure browsing experience, SSO forces the browser to redirect every insecure website to a secure website, automatically.",
   "version": "1.0",
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "logo-green-128.png",
     "icons": {
@@ -27,8 +27,10 @@
     }
   ],
   "permissions": [
-    "<all_urls>",
-    "tabs",
+    "activeTab",
     "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ]
 }

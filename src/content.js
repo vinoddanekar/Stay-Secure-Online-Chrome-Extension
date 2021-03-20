@@ -1,7 +1,3 @@
-/*
-1. after auto-redirect allow to add to exception
-2. show redirect link below add button
-*/
 var __fsEnableExtension = true;
 
 window.addEventListener('load', (event) => {
@@ -93,6 +89,17 @@ __fsInputActiveHttpUrl = function () {
     });
 }
 
+__fsOpenUrl = function () {
+    var txtAddUrl = document.getElementById("txtUrlToAdd");
+    if (txtAddUrl == null)
+        return;
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var tab = tabs[0];
+        chrome.tabs.update(tab.id, { url: txtAddUrl.value });
+    });
+}
+
 __fsUpdateButtonText = function () {
     var txtAddUrl = document.getElementById("txtUrlToAdd");
     var btnAddUrl = document.getElementById("btnAddUrl");
@@ -128,13 +135,14 @@ __fsAddUrl = function (url) {
         items.push(url);
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
-        btnAddUrl.value = "Done!";
-        btnAddUrl.className = 'btn-add';
+        __fsShowSuccessMessage('Website added! <a href="#" id="hplOpenUrl">Open it now</a>');
+        btnAddUrl.value = "Remove";
+        btnAddUrl.className = 'btn-remove';
 
-        setTimeout(() => {
-            btnAddUrl.value = "Remove";
-            btnAddUrl.className = 'btn-remove';
-        }, 2000);
+        var hplOpenUrl = document.getElementById("hplOpenUrl");
+        if (hplOpenUrl != null)
+            hplOpenUrl.addEventListener("click", __fsOpenUrl);
+
     });
 }
 
@@ -144,13 +152,21 @@ __fsRemoveUrl = function (url) {
         items.pop(url);
         chrome.storage.local.set({ '_WhiteListWebSiteStore': items });
         var btnAddUrl = document.getElementById("btnAddUrl");
-        btnAddUrl.value = "Done!";
-        btnAddUrl.className = 'btn-remove';
-        setTimeout(() => {
-            btnAddUrl.value = "Add";
-            btnAddUrl.className = 'btn-add';
-        }, 2000);
+        __fsShowSuccessMessage('Website removed!');
+        btnAddUrl.value = "Add";
+        btnAddUrl.className = 'btn-add';
     });
+}
+
+__fsShowSuccessMessage = function (message) {
+    var divMessage = document.getElementsByClassName("success-message")[0];
+    divMessage.innerHTML = message;
+    divMessage.style.display = 'inline-block';
+    //__fsOpenUrl
+
+    setTimeout(() => {
+        divMessage.style.display = 'none';
+    }, 5000);
 }
 
 __fsGetItems = function (localStorageResult) {
